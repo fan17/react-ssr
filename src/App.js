@@ -1,21 +1,51 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+    constructor(props) {
+        super(props);
+
+        this.box = React.createRef();
+    }
+
+    componentDidMount() {
+        this.changeBoxColor();
+    }
+
+    changeBoxColor() {
+        const colors = [
+            'red',
+            'green',
+            'blue',
+            'yellow',
+            'black',
+        ];
+
+        const boxColor = colors[Math.floor(Math.random() * colors.length)];
+
+        this.box.current.style.background = boxColor;
+    }
+
+    render() {
+        return (
+            <div>
+                <header>
+                    <h1>React SSR</h1>
+                </header>
+                <div
+                    className="box"
+                    ref={this.box}
+                    style={{}}
+                />
+                <button
+                    onClick={() => this.changeBoxColor()}
+                    type="button"
+                >
+                    Change color of the box
+                </button>
+            </div>
+        );
+    }
 }
 
 export default App;
