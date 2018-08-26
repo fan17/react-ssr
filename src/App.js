@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 
 class App extends Component {
     constructor(props) {
@@ -33,9 +32,8 @@ class App extends Component {
                     <h1>React SSR</h1>
                 </header>
                 <div
-                    className="box"
                     ref={this.box}
-                    style={{}}
+                    style={{width: 400, height: 400, display: 'block'}}
                 />
                 <button
                     onClick={() => this.changeBoxColor()}
