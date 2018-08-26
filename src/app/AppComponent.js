@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-class App extends Component {
+class AppComponent extends Component {
     constructor(props) {
         super(props);
 
@@ -8,7 +9,7 @@ class App extends Component {
     }
 
     componentDidMount() {
-        this.changeBoxColor();
+        // this.changeBoxColor();
     }
 
     changeBoxColor() {
@@ -23,17 +24,18 @@ class App extends Component {
         const boxColor = colors[Math.floor(Math.random() * colors.length)];
 
         this.box.current.style.background = boxColor;
+        this.props.changeTitle(boxColor);
     }
 
     render() {
         return (
             <div>
                 <header>
-                    <h1>React SSR</h1>
+                    <h1>{this.props.title}</h1>
                 </header>
                 <div
                     ref={this.box}
-                    style={{width: 400, height: 400, display: 'block'}}
+                    style={{ width: 400, height: 400, display: 'block' }}
                 />
                 <button
                     onClick={() => this.changeBoxColor()}
@@ -46,4 +48,9 @@ class App extends Component {
     }
 }
 
-export default App;
+AppComponent.propTypes = {
+    title: PropTypes.string.isRequired,
+    changeTitle: PropTypes.func.isRequired,
+};
+
+export default AppComponent;

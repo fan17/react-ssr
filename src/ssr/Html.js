@@ -1,32 +1,32 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 class Html extends React.Component {
-  static propTypes = {
-    children: PropTypes.node.isRequired,
-    scripts: PropTypes.array
-  }
+    render() {
+        const { children, initialState, scripts } = this.props;
 
-  render () {
-    const { children, scripts } = this.props;
-
-    return (
-      <html>
-        <head>
-          <meta charSet="UTF-8" />
-          <title>Server Side Rendered React App!!</title>
-        </head>
-        <body>
-          <div id="root"
-               dangerouslySetInnerHTML={{ __html: children }}
-          ></div>
-          {scripts.map((item, index) => {
-            return <script key={index} src={item}></script>;
-          })}
-        </body>
-      </html>
-    );
-  }
+        return (
+            <html>
+                <head>
+                    <meta charSet="UTF-8" />
+                    <title>Server Side Rendered React App!!</title>
+                </head>
+                <body>
+                    <div
+                        id="root"
+                        dangerouslySetInnerHTML={{ __html: children }}
+                    />
+                    {initialState && (
+                        <script
+                            dangerouslySetInnerHTML={{
+                                __html: `window.APP_STATE=${JSON.stringify(initialState)}`,
+                            }}
+                        />
+                    )}
+                    {scripts.map((item, index) => <script key={index} src={item} />)}
+                </body>
+            </html>
+        );
+    }
 }
 
 export default Html;
