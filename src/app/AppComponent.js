@@ -1,56 +1,30 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { Route, Link, Switch } from 'react-router-dom';
+import HomeContainer from '../home/HomeContainer';
+import AboutContainer from '../about/AboutContainer';
+import BoxContainer from '../box/BoxContainer';
 
 class AppComponent extends Component {
-    constructor(props) {
-        super(props);
-
-        this.box = React.createRef();
-    }
-
-    componentDidMount() {
-        // this.changeBoxColor();
-    }
-
-    changeBoxColor() {
-        const colors = [
-            'red',
-            'green',
-            'blue',
-            'yellow',
-            'black',
-        ];
-
-        const boxColor = colors[Math.floor(Math.random() * colors.length)];
-
-        this.box.current.style.background = boxColor;
-        this.props.changeTitle(boxColor);
-    }
 
     render() {
         return (
             <div>
-                <header>
-                    <h1>{this.props.title}</h1>
-                </header>
-                <div
-                    ref={this.box}
-                    style={{ width: 400, height: 400, display: 'block' }}
-                />
-                <button
-                    onClick={() => this.changeBoxColor()}
-                    type="button"
-                >
-                    Change color of the box
-                </button>
+                <ul>
+                    <li><Link to="/home">Home</Link></li>
+                    <li><Link to="/about">About</Link></li>
+                    <li><Link to="/box">Box</Link></li>
+                </ul>
+                <hr />
+                <div>
+                    <Switch>
+                        <Route path="/about" component={AboutContainer} />
+                        <Route path="/home" component={HomeContainer} />
+                        <Route path="/box" component={BoxContainer} />
+                    </Switch>
+                </div>
             </div>
         );
     }
 }
-
-AppComponent.propTypes = {
-    title: PropTypes.string.isRequired,
-    changeTitle: PropTypes.func.isRequired,
-};
 
 export default AppComponent;
