@@ -2,10 +2,11 @@ import express from 'express';
 import path from 'path';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import reducers, { initialState } from '../reducers';
 import { StaticRouter } from 'react-router';
+import thunk from 'redux-thunk';
 
 import Html from './Html';
 import AppContainer from '../app/AppContainer';
@@ -21,7 +22,12 @@ app.get('*', async (req, res, next) => {
         ...initialState,
         title: 'rendered on the server' 
     };
-    const store = createStore(reducers, serverState);
+
+    const middleware = [thunk];
+    const composeEnhancers = compose;
+    
+
+    const store = createStore(reducers, serverState, composeEnhancers(applyMiddleware(...middleware)));
     const context = {};
 
     const appMarkup = ReactDOMServer.renderToString(

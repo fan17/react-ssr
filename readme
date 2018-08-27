@@ -1,1 +1,3 @@
 node_modules/.bin/webpack && node ./build/server.js
+
+https://www.nafrontendzie.pl/server-side-rendering-react-1-wprowadzenie
